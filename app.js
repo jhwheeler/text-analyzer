@@ -5,7 +5,7 @@ function getText() {
 }
 
 function getWordArr(text) {
-    var words = text.split(" ")
+    var words = text.match(/[^_\W]+/g)
     console.log(words)
     var uniqueArr = getUniqueArr(words)
     return uniqueArr
