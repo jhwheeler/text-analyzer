@@ -30,8 +30,8 @@ var getWords = function(state) {
 
 var getSentences = function(state) {
     state.sentences = state.text.match( /[^\.!\?]+[\.!\?]+/g )
-    if (state.sentences == null) {
-        state.sentences = state.text
+      if (state.sentences == null) {
+        state.sentences = [state.text]
     }
 }
 
@@ -92,7 +92,7 @@ var renderAverageWordLength = function(state, element) {
 }
 
 var renderAverageSentenceLength = function(state, element) {
-    return element.append(state.averageSentenceLength)
+    return element.append(state.averageSentenceLength + " characters")
 }
 
 // event listener functions
