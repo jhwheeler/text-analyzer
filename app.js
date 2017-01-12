@@ -14,7 +14,7 @@ function getWordArr(text) {
 function getUniqueArr(words) {
     var uniqueWords = {}
     for (var i = 0; i < words.length; i++) {
-        if (uniqueWords.hasOwnProperty(words.i)) {
+        if (uniqueWords.hasOwnProperty(words[i])) {
             console.log(uniqueWords)
         } else {
            uniqueWords[i] = words[i] 
