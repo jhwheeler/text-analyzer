@@ -20,6 +20,7 @@ var state = {
 
 var getText = function(state) {
     state.text = $('#user-text').val()
+    console.log(state.text)
 }
 
 var getWords = function(state) {
@@ -79,29 +80,26 @@ var getAverageSentenceLength = function(state) {
 // render functions
 
 var renderWordCount = function(state, element) {
-    $("dl").toggleClass('hidden')
     return element.append(state.wordCount)
 }
 
 var renderUniqueWordCount = function(state, element) {
-    $("dl").toggleClass('hidden')
     return element.append(state.uniqueWordCount)
 }
 
 var renderAverageWordLength = function(state, element) {
-    $("dl").toggleClass('hidden')
     return element.append(state.averageWordLength)
 }
 
 var renderAverageSentenceLength = function(state, element) {
-    $("dl").toggleClass('hidden')
     return element.append(state.averageSentenceLength)
 }
 
 // event listener functions
 
 $(function() {
-    $('button').click(function() {
+    $('button').click(function(event) {
+        event.preventDefault()
         getText(state)
         getWords(state)
         getSentences(state)
@@ -116,5 +114,6 @@ $(function() {
         renderUniqueWordCount(state, $('.uniqueWordCount'))
         renderAverageWordLength(state, $('.averageWordLength'))
         renderAverageSentenceLength(state, $('.averageSentenceLength'))
+        $("dl").toggleClass('hidden')
     })
 })
