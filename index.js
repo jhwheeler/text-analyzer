@@ -33,49 +33,50 @@ var countHelper = {
     }
 }
 
-var getWordLengths = function(state) {
-    for (var i = 0; i < state.words.length; i++) {
-       state.wordLengths.push(state.words[i].length)
+var lengthHelper = {
+    getWordLengths: function(state) {
+        for (var i = 0; i < state.words.length; i++) {
+           state.wordLengths.push(state.words[i].length)
+        }
+    },
+    getAverageWordLength: function(state) { 
+        var sum = state.wordLengths.reduce(function(a, b) {
+            return a + b
+        }, 0)
+        state.averageWordLength = (sum/state.wordLengths.length).toFixed(2)
+    },
+
+    getSentenceLengths: function(state) {
+            for (var i = 0; i < state.sentences.length; i++) {
+                state.sentenceLengths.push(state.sentences[i].length)
+            }
+    },
+
+    getAverageSentenceLength: function(state) {
+        var sum = state.sentenceLengths.reduce(function(a,b) {
+           return a + b
+        }, 0)
+       state.averageSentenceLength = (sum/state.sentenceLengths.length).toFixed(2)
     }
 }
+        
+var renderHelper = {
+    renderWordCount: function(state, element) {
+        return element.text(state.wordCount)
+    },
 
-var getAverageWordLength = function(state) { 
-    var sum = state.wordLengths.reduce(function(a, b) {
-        return a + b
-    }, 0)
-    state.averageWordLength = (sum/state.wordLengths.length).toFixed(2)
+    renderUniqueWordCount: function(state, element) {
+        return element.text(state.uniqueWordCount)
+    },
+
+    renderAverageWordLength: function(state, element) {
+        return element.text(state.averageWordLength)
+    },
+
+    renderAverageSentenceLength: function(state, element) {
+        return element.text(state.averageSentenceLength + " characters")
+    }
 }
-
-var getSentenceLengths = function(state) {
-        for (var i = 0; i < state.sentences.length; i++) {
-            state.sentenceLengths.push(state.sentences[i].length)
-        }
-}
-
-var getAverageSentenceLength = function(state) {
-    var sum = state.sentenceLengths.reduce(function(a,b) {
-       return a + b
-    }, 0)
-   state.averageSentenceLength = (sum/state.sentenceLengths.length).toFixed(2)
-}
-
-// render functions
-
-var renderWordCount = require('./Render.js')
-
-var renderUniqueWordCount = function(state, element) {
-    return element.text(state.uniqueWordCount)
-}
-
-var renderAverageWordLength = function(state, element) {
-    return element.text(state.averageWordLength)
-}
-
-var renderAverageSentenceLength = function(state, element) {
-    return element.text(state.averageSentenceLength + " characters")
-}
-
-// event listener functions
 
 $(function() {
     var state = {
@@ -92,20 +93,19 @@ $(function() {
     }
     $('#user-text').on("input", function(event) {
         event.preventDefault()
-        for (var key in stringManipulation) {
-            stringManipulation[key](state)
+        for (var key in stringHelper) {
+            stringHelper[key](state)
         }
-        getUniqueWords(state)
-        getWordCount(state)
-        getUniqueWordCount(state)
-        getWordLengths(state)
-        getAverageWordLength(state)
-        getSentenceLengths(state)
-        getAverageSentenceLength(state)
-        renderWordCount(state, $('.wordCount'))
-        renderUniqueWordCount(state, $('.uniqueWordCount'))
-        renderAverageWordLength(state, $('.averageWordLength'))
-        renderAverageSentenceLength(state, $('.averageSentenceLength'))
+        for (var key in countHelper) {
+            countHelper[key](state)
+        }
+        for (var key in lengthHelper) {
+           lengthHelper[key](state)
+        } 
+        renderHelper.renderWordCount(state, $('.wordCount'))
+        renderHelper.renderUniqueWordCount(state, $('.uniqueWordCount'))
+        renderHelper.renderAverageWordLength(state, $('.averageWordLength'))
+        renderHelper.renderAverageSentenceLength(state, $('.averageSentenceLength'))
         $("dl").removeClass('hidden')
     })
 })
