@@ -114,7 +114,7 @@ $(function() {
         } 
         renderHelper.renderWordCount(state, $('.wordCount'))
         renderHelper.renderCharCount(state, $('.charCount'))
-        renderHelper.renderUniqueWordCount(state, $('.uniqueWordCount'))
+        //renderHelper.renderUniqueWordCount(state, $('.uniqueWordCount'))
         renderHelper.renderAverageWordLength(state, $('.averageWordLength'))
         renderHelper.renderAverageSentenceLength(state, $('.averageSentenceLength'))
         $("dl").removeClass('hidden')
