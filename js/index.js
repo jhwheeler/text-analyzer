@@ -28,6 +28,11 @@ var countHelper = {
     getWordCount: function(state) {
         state.wordCount = state.words.length
     },
+
+    getCharCount: function(state) {
+        state.charCount = state.text.length
+    },
+
     getUniqueWordCount: function(state) {
         state.uniqueWordCount = state.uniqueWords.length
     }
@@ -65,6 +70,10 @@ var renderHelper = {
         return element.text(state.wordCount)
     },
 
+    renderCharCount: function(state, element) {
+        return element.text(state.charCount)
+    },
+
     renderUniqueWordCount: function(state, element) {
         return element.text(state.uniqueWordCount)
     },
@@ -87,6 +96,7 @@ $(function() {
         wordLengths: [],
         sentenceLengths: [],
         wordCount: 0,
+        charCount: 0,
         uniqueWordCount: 0,
         averageWordLength: 0,
         averageSentenceLength: 0
@@ -103,6 +113,7 @@ $(function() {
            lengthHelper[key](state)
         } 
         renderHelper.renderWordCount(state, $('.wordCount'))
+        renderHelper.renderCharCount(state, $('.charCount'))
         renderHelper.renderUniqueWordCount(state, $('.uniqueWordCount'))
         renderHelper.renderAverageWordLength(state, $('.averageWordLength'))
         renderHelper.renderAverageSentenceLength(state, $('.averageSentenceLength'))
